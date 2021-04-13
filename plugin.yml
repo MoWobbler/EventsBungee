@@ -1,0 +1,22 @@
+name: Events
+main: net.simpvp.Events.Events
+version: 3
+api-version: 1.13
+author: C4K3.net
+website: https://github.com/C4K3/Events
+description: Lets admins setup a teleport point, and then allow players to teleport to it
+commands:
+  ea:
+    description: Toggles active/inactive state of plugin.
+  eventset:
+    description: Sets the teleport point for the event.
+  event:
+    description: Teleports player to the event teleport point.
+  eventlist:
+    description: Lists all players currently participating in events.
+  quitevent:
+    description: Leave the event you're currently in.
+  endevent:
+    description: Let's admins end the event for all players
+  eventrestore:
+    description: Restores lost items
