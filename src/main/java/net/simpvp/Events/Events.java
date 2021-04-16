@@ -28,7 +28,6 @@ public class Events extends JavaPlugin implements Listener {
 		getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageBungeecord());
 		getCommand("ea").setExecutor(new EaCommand());
 		getCommand("event").setExecutor(new EventCommand());
-		getCommand("eventlist").setExecutor(new EventListCommand());
 		getCommand("eventset").setExecutor(new EventSetCommand());
 		getCommand("quitevent").setExecutor(new QuitEventCommand());
 		getCommand("endevent").setExecutor(new EndEventCommand());
