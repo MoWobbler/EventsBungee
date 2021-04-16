@@ -89,8 +89,9 @@ public class EaCommand implements CommandExecutor {
 			Events.instance.getLogger().info(player1.getName());
 			Events.instance.getLogger().info(sargs);
 			EaCommand.setMessage(
-					"[Announcement] Starting event:" + EaCommand.getEventName()
-					+ "\n Type /event to join.");
+					"[Announcement] Starting event:" + sargs
+					+ "\n Type /event to join."
+					+ "\n Your inventory, xp and location will be saved.");
 			MessageBungeecord.PlayerList(player1);
 		}
 
@@ -99,12 +100,12 @@ public class EaCommand implements CommandExecutor {
 		return true;
 	}
 	
-	// Set message to be broadcasted
+	// Set event name to be broadcasted
 	public static String getEventName() {
 		return eventName;
 	}
 	
-	// Get message to be broadcasted
+	// Get event name to be broadcasted
 	public static void setEventName(String eventName) {
 		EaCommand.eventName = eventName;
 	}
