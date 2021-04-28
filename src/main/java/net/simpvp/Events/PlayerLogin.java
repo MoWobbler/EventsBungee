@@ -4,17 +4,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class PlayerLogin implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		
-		if (event.getPlayer().isOp()) {
-			return;
-		}
 		
-		if (!Event.getIsActive()) {
-			event.disallow(null, "Please wait for an event to start!");
+		if (!Event.getIsActive() && !event.getPlayer().isOp()) {
+			event.disallow(null, ChatColor.RED + "Please wait for an event to start!");
 			return;
 		}
 	}
