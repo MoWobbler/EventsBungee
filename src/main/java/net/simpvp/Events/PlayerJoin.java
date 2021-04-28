@@ -21,17 +21,20 @@ public class PlayerJoin implements Listener {
 
 		
 		Player player = event.getPlayer();
-		player.teleport(player.getWorld().getSpawnLocation());
-		player.setFoodLevel(20);
-		player.setLevel(0);
-		player.setExp(0);
-		player.getInventory().clear();
-		player.getInventory().setArmorContents(null);
-		player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
-		for (PotionEffect potionEffect : player.getActivePotionEffects())
-			player.removePotionEffect(potionEffect.getType());
-		player.setGameMode(GameMode.SURVIVAL);
-		player.performCommand("event");
+
+		if (!player.isOp()) {
+			player.teleport(player.getWorld().getSpawnLocation());
+			player.setFoodLevel(20);
+			player.setLevel(0);
+			player.setExp(0);
+			player.getInventory().clear();
+			player.getInventory().setArmorContents(null);
+			player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
+			for (PotionEffect potionEffect : player.getActivePotionEffects())
+				player.removePotionEffect(potionEffect.getType());
+			player.setGameMode(GameMode.SURVIVAL);
+			player.performCommand("event");
+		}
 		Team team = player.getScoreboard().getPlayerTeam(player);
 		if (team != null) {
 			team.removePlayer(player);
