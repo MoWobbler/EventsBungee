@@ -9,12 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Events extends JavaPlugin implements Listener {
 
-	public static Events instance;
+	public static JavaPlugin instance;
 	public static boolean enabled = false;
 
-	public Events() {
-		instance = this;
-	}
 
 	@Override
 	public void onEnable(){
@@ -33,7 +30,8 @@ public class Events extends JavaPlugin implements Listener {
 		getCommand("endevent").setExecutor(new EndEventCommand());
 		getCommand("eventrestore").setExecutor(new EventRestoreCommand());
 		enabled = true;
-		setInstance(this);
+		instance = this;
+
 	}
 
 	@Override
@@ -41,15 +39,7 @@ public class Events extends JavaPlugin implements Listener {
 		enabled = false;
 	}
 	
-	// Get instance
-	public static Events getInstance() {
-		return instance;
-	}
-	
-	// Set instance
-	private static void setInstance(Events instance) {
-		Events.instance = instance;
-	}
+
 
 }
 
