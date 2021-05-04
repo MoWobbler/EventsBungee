@@ -16,7 +16,6 @@ import net.md_5.bungee.api.ChatColor;
 
 
 public class MessageBungeecord implements PluginMessageListener{
-	private static Events plugin = Events.instance;
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] message) {
 	if (!channel.equals("BungeeCord")) {
@@ -36,7 +35,7 @@ public class MessageBungeecord implements PluginMessageListener{
 		output.writeUTF("Connect");
 		output.writeUTF(server);
 		
-		player.sendPluginMessage(plugin,"BungeeCord",output.toByteArray());
+		player.sendPluginMessage(Events.instance,"BungeeCord",output.toByteArray());
 	}
 	
 	
@@ -48,7 +47,7 @@ public class MessageBungeecord implements PluginMessageListener{
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		  out.writeUTF("PlayerList");
 		  out.writeUTF("ALL");
-		  player.sendPluginMessage(Events.getInstance(), "BungeeCord", out.toByteArray());
+		  player.sendPluginMessage(Events.instance, "BungeeCord", out.toByteArray());
 	}
 	
 	 /* This method sends a message to all players
@@ -68,7 +67,7 @@ public class MessageBungeecord implements PluginMessageListener{
 					}catch(Exception e) {
 						e.printStackTrace();
 					}
-					sender.sendPluginMessage(Events.getInstance(), "BungeeCord", b.toByteArray());	  
+					sender.sendPluginMessage(Events.instance, "BungeeCord", b.toByteArray());	  
 	    		  }
 	    	  }
 	}
