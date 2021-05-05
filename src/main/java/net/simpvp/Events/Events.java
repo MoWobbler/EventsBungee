@@ -22,7 +22,6 @@ public class Events extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
 		getServer().getPluginManager().registerEvents(new PluginDisable(), this);
 		getServer().getMessenger().registerOutgoingPluginChannel(this,"BungeeCord");
-		getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new MessageBungeecord());
 		getCommand("ea").setExecutor(new EaCommand());
 		getCommand("event").setExecutor(new EventCommand());
 		getCommand("eventset").setExecutor(new EventSetCommand());
