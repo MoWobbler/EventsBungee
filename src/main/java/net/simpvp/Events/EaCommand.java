@@ -1,13 +1,10 @@
 package net.simpvp.Events;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.google.common.collect.Iterables;
 
 
 /** Command /ea to change the active state of the /event command.
@@ -18,8 +15,7 @@ import com.google.common.collect.Iterables;
  * If no argument is given, then it is toggled.
  */
 public class EaCommand implements CommandExecutor {
-	private static String eventName;
-	private static String message;
+
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -84,15 +80,14 @@ public class EaCommand implements CommandExecutor {
 			for (int i = 1; i < args.length; i++)
 				sargs += " " + args[i];
 			
-			setEventName(sargs);
-			Player player1 = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
-			Events.instance.getLogger().info(player1.getName());
+
+
 			Events.instance.getLogger().info(sargs);
-			EaCommand.setMessage(
-					"[Announcement] Starting event:" + sargs
+					
+			MessageBungeecord.messageAll(
+					ChatColor.LIGHT_PURPLE + "[Announcement] Starting event:" + sargs
 					+ "\n Type /event to join."
 					+ "\n Your inventory, xp and location will be saved.");
-			MessageBungeecord.PlayerList(player1);
 		}
 
 		Event.setIsActive(newState);
@@ -100,25 +95,7 @@ public class EaCommand implements CommandExecutor {
 		return true;
 	}
 	
-	// Set event name to be broadcasted
-	public static String getEventName() {
-		return eventName;
-	}
-	
-	// Get event name to be broadcasted
-	public static void setEventName(String eventName) {
-		EaCommand.eventName = eventName;
-	}
-	
-	// Set message to be broadcasted
-	public static String getMessage() {
-		return message;
-	}
-	
-	// Get message to be broadcasted
-	public static void setMessage(String message) {
-		EaCommand.message = message;
-	}
+
 
 }
 
