@@ -16,7 +16,6 @@ public class MessageBungeecord {
 		ByteArrayDataOutput output = ByteStreams.newDataOutput();
 		output.writeUTF("Connect");
 		output.writeUTF(server);
-		
 		player.sendPluginMessage(Events.instance,"BungeeCord",output.toByteArray());
 	}
 	
