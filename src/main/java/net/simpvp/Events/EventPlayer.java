@@ -1,10 +1,15 @@
 package net.simpvp.Events;
 
+import java.util.Collection;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Team;
 
 /** Represents data about a player currently participating in the event.
@@ -15,11 +20,29 @@ public class EventPlayer {
 	private UUID uuid;
 	private String name;
 	private Location location;
+	private Integer foodLevel;
+	private Integer playerLevel;
+	private float playerXP;
+	private ItemStack[] armorContents;
+	private ItemStack[] inventoryContents;
+	private Double playerHealth;
+	private Collection<PotionEffect> potionEffects;
+	private GameMode playerGameMode;
 	private Boolean isQuitting;
 
-	public EventPlayer(UUID uuid, String name, Boolean isQuitting) {
+	public EventPlayer(UUID uuid, String name, Location location, Integer foodLevel, Integer playerLevel, float playerXP, ItemStack[] armorContents,
+			ItemStack[] inventoryContents, Double playerHealth, Collection<PotionEffect> potionEffects, GameMode playerGameMode, Boolean isQuitting) {
 		this.uuid = uuid;
 		this.name = name;
+		this.location = location;
+		this.foodLevel = foodLevel;
+		this.playerLevel = playerLevel;
+		this.playerXP = playerXP;
+		this.armorContents = armorContents;
+		this.inventoryContents = inventoryContents;
+		this.playerHealth = playerHealth;
+		this.potionEffects = potionEffects;
+		this.playerGameMode = playerGameMode;
 		this.isQuitting = isQuitting;
 	}
 
@@ -56,6 +79,69 @@ public class EventPlayer {
 		return location;
 	}
 
+	/**
+	 * Get's the player's food level outside the events.
+	 * @return player's return food level.
+	 */
+	public int getFoodLevel() {
+		return foodLevel;
+	}
+
+	/**
+	 * Get the player's xp level outside the event.
+	 * @return player's return xp level.
+	 */
+	public int getPlayerLevel() {
+		return playerLevel;
+	}
+
+	/**
+	 * Get the player's progress to next xp level outside the event.
+	 * @return player's return xp progress.
+	 */
+	public float getPlayerXP() {
+		return playerXP;
+	}
+
+	/**
+	 * Get the player's armor contents outside the event.
+	 * @return player's return armor contents.
+	 */
+	public ItemStack[] getArmorContents() {
+		return armorContents;
+	}
+
+	/**
+	 * Get the players inventory contents outside the event.
+	 * @return player's return inventory contents.
+	 */
+	public ItemStack[] getInventoryContents() {
+		return inventoryContents;
+	}
+
+	/**
+	 * Get the player's health outside the event.
+	 * @return the player's return health.
+	 */
+	public Double getPlayerHealth() {
+		return playerHealth;
+	}
+
+	/**
+	 * Get a collection of the player's potion effects outside the event.
+	 * @return player's return potion effects.
+	 */
+	public Collection<PotionEffect> getPotionEffects() {
+		return potionEffects;
+	}
+
+	/**
+	 * Get the player's gamemode outside the event.
+	 * @return player's return gamemode.
+	 */
+	public GameMode getPlayerGameMode() {
+		return playerGameMode;
+	}
 
 	/**
 	 * Get whether the player will be quitting on this death.
@@ -90,13 +176,10 @@ public class EventPlayer {
 	 */
 	public void sendHome(final Player player) {
 
-		Events.instance.getLogger().info("Ported " + name + " home from events.");
+		Events.instance.getLogger().info(player.getName());
 
-		player.sendMessage(ChatColor.AQUA + "Teleporting you to the lobby. To return home do /quitevent.");
-
-		Team team = player.getScoreboard().getPlayerTeam(player);
-		if (team != null)
-			team.removePlayer(player);
+		
+		MessageBungeecord.connect(player);
 
 		this.remove();
 	}
