@@ -23,7 +23,6 @@ public class PlayerJoin implements Listener {
 		Player player = event.getPlayer();
 
 		if (!player.isOp()) {
-			player.teleport(player.getWorld().getSpawnLocation());
 			player.setFoodLevel(20);
 			player.setLevel(0);
 			player.setExp(0);
@@ -44,4 +43,3 @@ public class PlayerJoin implements Listener {
 		return;
 		
 	}
-}
