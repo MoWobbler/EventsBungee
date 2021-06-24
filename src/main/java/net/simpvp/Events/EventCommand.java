@@ -1,16 +1,17 @@
 package net.simpvp.Events;
 
+import java.util.Collection;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.attribute.Attribute;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.potion.PotionEffect;
 
 /** This class is responsible for handling the /event command.
@@ -36,8 +37,7 @@ public class EventCommand implements CommandExecutor {
 		/* Event must be active */
 		if (!Event.getIsActive()) {
 			player.sendMessage(ChatColor.RED + "Event is currently closed for new contestants.\n"
-					+ "Please wait until the next event starts.\n"
-					+ "To quit the event, do /quitevent.");
+					+ "Please wait until the next event starts.");
 			return true;
 		}
 
@@ -54,7 +54,7 @@ public class EventCommand implements CommandExecutor {
 		/* Player is already in the event */
 		if (Event.isPlayerActive(uuid)) {
 			sender.sendMessage(ChatColor.RED + "You cannot join the same event twice.\n" +
-					"If you wish to quit the event, type /quitevent");
+					"If you wish to quit the event, type /kill");
 			return true;
 		}
 
@@ -74,11 +74,18 @@ public class EventCommand implements CommandExecutor {
 
 		/* Everything seems to be in order. Saving all player info for when the event is over */
 		String sPlayer = player.getName();
+		Location playerLocation = player.getLocation();
+		int playerFoodLevel = player.getFoodLevel();
 		int playerLevel = player.getLevel();
+		float playerXP = player.getExp();
+		ItemStack[] armorContents = player.getInventory().getArmorContents();
 		ItemStack[] inventoryContents = player.getInventory().getContents();
+		Double playerHealth = player.getHealth();
+		Collection<PotionEffect> potionEffects = player.getActivePotionEffects();
+		GameMode gameMode = player.getGameMode();
 
 		/* Save all this data */
-		EventPlayer eventPlayer = new EventPlayer(uuid, sPlayer, false);
+		EventPlayer eventPlayer = new EventPlayer(uuid, sPlayer, playerLocation, playerFoodLevel, playerLevel, playerXP, armorContents, inventoryContents, playerHealth, potionEffects, gameMode, false);
 		eventPlayer.save();
 
 		/* Log it all, just in case */
@@ -87,14 +94,10 @@ public class EventCommand implements CommandExecutor {
 		for (ItemStack itemStack : inventoryContents) {
 			if (itemStack == null)
 				continue;
-			String durability = "";
-			   if (itemStack.getItemMeta() instanceof Damageable){
-		            durability = Integer.toString(((Damageable) itemStack.getItemMeta()).getDamage());
-		        }
 
 			String tmp = itemStack.getType().toString()
 				+ "." + itemStack.getAmount()
-				+ "." + durability
+				+ "." + itemStack.getDurability()
 				+ "." + itemStack.getEnchantments().toString();
 			tmp = tmp.replaceAll(" ", "");
 			sInventoryContents += " " + tmp;
@@ -108,13 +111,14 @@ public class EventCommand implements CommandExecutor {
 		player.setExp(0);
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
-		player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
+		player.setHealth(player.getMaxHealth());
 		for (PotionEffect potionEffect : player.getActivePotionEffects())
 			player.removePotionEffect(potionEffect.getType());
 		player.setGameMode(GameMode.SURVIVAL);
 		player.teleport(Event.getStartLocation());
 
-		player.sendMessage(ChatColor.AQUA + "Teleporting you to the event arena.");
+		player.sendMessage(ChatColor.AQUA + "Teleporting you to the event arena."
+				+ "\nWhen you die, you will be teleported back with all your items and XP in order.");
 
 		return true;
 
