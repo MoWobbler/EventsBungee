@@ -20,7 +20,6 @@ public class PluginDisable implements Listener {
 
 			EventPlayer eventPlayer = Event.getEventPlayer(uuid);
 			eventPlayer.sendHome(p);
-			p.teleport(eventPlayer.getLocation());
 		}
 	}
 }
