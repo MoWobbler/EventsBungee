@@ -6,7 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
 /** Command /ea to change the active state of the /event command.
  * 
  * When it is active, players can do /event. When it is inactive, players cannot do /event.
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
  * If no argument is given, then it is toggled.
  */
 public class EaCommand implements CommandExecutor {
-
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -79,23 +77,18 @@ public class EaCommand implements CommandExecutor {
 
 			for (int i = 1; i < args.length; i++)
 				sargs += " " + args[i];
-			
 
-
-			Events.instance.getLogger().info(sargs);
-					
 			MessageBungeecord.messageAll(
 					ChatColor.LIGHT_PURPLE + "[Announcement] Starting event:" + sargs
 					+ "\n Type /event to join."
 					+ "\n Your inventory, xp and location will be saved.");
 		}
 
+
 		Event.setIsActive(newState);
 
 		return true;
 	}
-	
-
 
 }
 
