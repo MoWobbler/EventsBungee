@@ -35,12 +35,9 @@ public class PlayerRespawn implements Listener {
 		if (team != null)
 			teamSpawn = Event.getTeamSpawn(team.getName());
 
-		/* If isQuitting is true, or if the player is not in a team with a registered team spawn, then send player to spawn */
+		/* If isQuitting is true, or if the player is not in a team with a registered team spawn, then send player home */
 		if (eventPlayer.getIsQuitting() || teamSpawn == null) {
-			//event.setRespawnLocation(player.getWorld().getSpawnLocation());
-			//eventPlayer.sendHome(player);
-			MessageBungeecord.connect(player, "Survival");
-			
+			eventPlayer.sendHome(player);
 		} else {
 			/* else we send the player to their team's spawn location */
 			event.setRespawnLocation(teamSpawn);
