@@ -12,10 +12,11 @@ import com.google.common.io.ByteStreams;
 public class MessageBungeecord {
 
 	//Connect player to a server
-	public static void connect(Player player, String server) {
+	public static void connect(Player player) {
 		ByteArrayDataOutput output = ByteStreams.newDataOutput();
 		output.writeUTF("Connect");
-		output.writeUTF(server);
+		//Name of the main server in the bungeecord config
+		output.writeUTF("simpvp");
 		player.sendPluginMessage(Events.instance,"BungeeCord",output.toByteArray());
 	}
 	
