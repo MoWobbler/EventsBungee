@@ -10,8 +10,4 @@ Main changes:
 
 Removed some uneeded data
 
-Instead of porting players home from events on death, they are now sent to the event world's spawn. A lobby should be built there to hold players.
-
-
-
 Plugin still needs to be polished up and tested
